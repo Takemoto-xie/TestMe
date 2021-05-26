@@ -1,202 +1,203 @@
 <a name="54fa66eaba498942a1604ffa591838ac"></a>
 # ![1593768128247-016fe60b-8853-48fb-8b76-f9f702b83db5.png](https://cdn.nlark.com/yuque/0/2020/png/213807/1606304234500-46a10b02-f83d-4996-99fc-ce092241ea7c.png#height=100&id=SslN0&name=1593768128247-016fe60b-8853-48fb-8b76-f9f702b83db5.png&originHeight=200&originWidth=200&originalType=binary&size=28522&status=done&style=shadow&width=100)
 <a name="HGXXr"></a>
+### 中文 | [English](/README_EN.md)
 <a name="174be9787bb85687706b11dfa538cd99"></a>
-# Foreword
-By chance, I came across iOS [Vest Bag Business](https://www.yuque.com/docs/share/7e70244c-5dea-4035-b634-65cc082097da?# "Vest Bag Introduction"), and I have used it in the early stage. Others currently on the market Get the tools, the actual effect is not ideal. After a lot of practice, a fully functional [Confusion Tool](https://github.com/520coding/confuse) has been developed. The main functions of the tool OC, C++, Swift have been packaged into Mac applications, and other functions are still being packaged, so stay tuned.
+# 前言
+机缘巧合偶遇iOS[马甲包业务](https://www.yuque.com/docs/share/7e70244c-5dea-4035-b634-65cc082097da?#《马甲包简介》)，前期也使用过目前市面上其他得工具，实际效果不太理想。经过大量实践，开发出一款功能齐全的[混淆工具](https://github.com/520coding/confuse)。工具的主要功能OC、C++、Swift已封装成Mac应用，其他功能还在封装中，敬请期待。
 <a name="9716a56c8b2aa1819920e42731952b21"></a>
-# Tips
-In order to let everyone get started quickly and compare the confusion effect, a new test project [**confuse_test**](https://github.com/520coding/confuse/tree/master/confuse_test) was created. If you encounter any problems during actual use Questions, welcome to extend the test project, please indicate the bug details in the project, there will be rewards.
-> Instructions for the old version before 1.2.0:
-> Introduction: No grammar and compilation requirements are involved, but partial omissions or corrections may occur after confusion, please add to the blacklist filter by yourself.
-> Applicable projects: RN and other mixed projects that have not yet been adapted.
-> Conditions of use: temporarily unavailable, reopen later
+# 提示
+为了让大家快速上手及对比混淆效果，新建了测试工程[**confuse_test**](https://github.com/520coding/confuse/tree/master/confuse_test)，大家在实际使用过程中如果遇到问题，欢迎扩展测试工程，请在工程中请注明bug细节，有奖励。
+> 1.2.0之前的老版本说明：  
+> 简介：不涉及语法及编译要求，但是混淆后可能出现局部漏改或者改错，请自行添加至黑名单过滤。  
+> 适用项目：RN等还未适配的混合项目。  
+> 使用条件：暂时没法使用，后期重新开放
 
 <a name="d414d8542c4c96e2fa3cda81b4a61dc1"></a>
-# Readme
+# 自述
 <a name="6e674183b5d2f1af15baaa27bb7c93b2"></a>
-### The essence of the vest:
+### 马甲包的本质：
 
-1. Reduce the repetition rate in the first stage. The initial version of my development is basically similar to other tools currently on the market, mainly the basic function of "name" global replacement
-1. In the second stage, the similarity is reduced (normal distribution of the same elements). The tool has been greatly improved after optimization and continuous reconstruction, and it basically meets the requirements in this respect. For details, see the following function introduction. There are two sides to everything. The more powerful the function, the longer it takes to confuse. If your project is large, it is possible to confuse for a few hours. Please don't take it offense, as the follow-up continues to optimize.
+1. 阶段一减低重复率 ，本人开发初期的版本和目前市面上的其它工具基本相似，主要是‘名称’全局替换这一个基本的功能
+1. 阶段二减少相似度（相同元素的正态分布），目前该工具经过优化及不断重构已经有了很大的改善，目前基本符合这方面要求，详情见以下功能介绍。事物都有两面性，功能越强大混淆耗时越长，如果你的项目很大，混淆几个小时也是有可能的，请不要见怪，后续持续优化中。
 <a name="fc8a03eacc987f4c5e94e6dc0086ea50"></a>
-### Distinguish the pros and cons of tools
-In fact, to identify the pros and cons of a tool, just look at the following points:
+### 区分工具优劣
+其实识别一个工具的优劣，只需看看以下几点：
 
-1. Can modify all attributes, methods, and all parameter names of methods
-1. The method with block parameters, a typical network request
-> For example: + (BOOL)post:(NSString *)url parameters:(NSDictionary *)parameters success:(HttpRequestResponse)success error:(HttpRequestResponse)error;
+1. 能否修改所有的属性、方法，及方法的所有参数名
+1. 带block的参数的方法，典型的网络请求
+> 例如：+ (BOOL)post:(NSString *)url parameters:(NSDictionary *)parameters success:(HttpRequestResponse)success error:(HttpRequestResponse)error;
 
-3. The length of the changed name of the method name and the attribute name (this tool can guarantee that 60~80% of the changed name is a common word, such as name, title, etc. and ensure that it does not conflict with the system, ~~ completely abandon the simple The practice of relying on a large number of word libraries to ensure the uniqueness of naming~~, truly simulating manual development)
-3. Modify the layout (Frame, Masonry, SDAutoLayout)
-3. Is the code inserted or "garbage" (this tool creates custom controls by encapsulating network requests, and uses MVC mode associations between files to completely bid farewell to "garbage" and realize the fake and the real).
-3. Not to mention "Who else..." can identify macros, distinguish contextual content such as inheritance chains, and intelligently identify unmodifiable parts
-> For example: + (void)init;- (void)reloadData; basically can be changed, how many can it be done? "
+3. 方法名和属性名改后的名字的长短（本工具能够保证60~80%的改后名称是常见的一个单词，例如：name、title等且保证不与系统冲突，~~完全摒弃简单的靠大量单词库堆砌以保证命名的唯一性的做法~~，真正模拟人工开发）
+3. 修改布局（Frame、Masonry、SDAutoLayout）
+3. 插入的是代码还是‘垃圾’（本工具通过封装网络请求，创建自定义控件，文件之间使用MVC模式关联，彻底告别‘垃圾’，实现以假乱真）。
+3. 更别说“还有谁...”能识别宏、区分继承链等上下文关联内容，智能识别不可修改部分
+> 例如：+ (void)init;- (void)reloadData;基本能改，做到的有几个呢？”
 
-7. Normal projects (or third-party libraries) are obfuscated and basically do not report errors (except for some individual [not rigorous syntax](https://www.yuque.com/docs/share/4a87ec96-80fe-4d25-873d-93cb428b3e15?#5sCql) error after causing confusion)
+7. 正常项目（或者第三方库）混淆完基本不报错（除了一些个别[语法不严谨](https://www.yuque.com/docs/share/4a87ec96-80fe-4d25-873d-93cb428b3e15?#5sCql)造成混淆后报错）
 
 
-<br />You are also welcome to use different tools to confuse test projects [**confuse_test**](https://github.com/520coding/confuse/tree/master/confuse_test) or third-party open source library projects to compare the effects.
+<br />也欢迎大家使用不同工具混淆测试工程[**confuse_test**](https://github.com/520coding/confuse/tree/master/confuse_test)或者第三方开源库项目，对比效果。
 <a name="426215c094f184f34acdb12593ddb1fc"></a>
-# Features
-confuse is a [confuse tool](https://github.com/520coding/confuse), which simulates manual development as much as possible, imitates some functions of Xcode, and avoids machine core 4.3, 2.1, 2.3.1, account surveys, etc. <br />Goal: **simulate manual modification of everything that can be changed**, which is why this tool only has a blacklist and no whitelist.<br />The detailed functions are as follows (the basic functions are not described, see other tools for details ):
+# 功能
+confuse是一款[混淆工具](https://github.com/520coding/confuse)，尽可能模拟人工开发，仿照Xcode部分功能，避免机核4.3、2.1、2.3.1、账号调查等。<br />目标：**模拟人工修改一切能改的地方**，这也是为什么本工具只有黑名单没有白名单的原因<br />详细功能如下（基本功能不做描述，详见其他工具）：
 <a name="82f2e3582d1466241460f1564b36b2a6"></a>
-## completed
-The following functions are supported:
+## 已完成
+以下功能均支持：
 
-1. Blacklist (secondary) filtering, freely control the obfuscated content of each function, and adapt to almost all projects.
-1. Confusion percentage control, you can freely adjust it according to the actual needs of your own project
-1. Smart noun substitution:
-   1. When renaming, use the combination of related type existing information + similar semantics + type + part of the old vocabulary, and filter sensitive words. At the same time, users can also customize sensitive words, ~~abandon ‘random word brainless combination’~~
-   1. Different types of members with the same name -> different types of members with different names, and different types of different name members -> different types of members with the same name, simulating normal development. Members refer to methods, attributes, and functions
-4. Intelligent identification of unmodifiable parts: Identifying systems, third parties, and Pod methods through types and inheritance chains is not a ‘simple’ equality judgment, for example:
-   1. Class method: + (void)init; in principle, it can be changed anywhere
-   1. Object method:-(void)reloadData; it can be changed if it is not a subclass of UITableView
-   1. Property: @property (readonly) NSUInteger length; it can be changed if it is not a subclass of NSString
+1. 黑名单（二级）过滤，自由控制每个功能的混淆内容，几乎适应所有项目。
+1. 混淆百分比控制，可以结合自己项目的实际需求，自由调整
+1. 智能名词替换：
+   1. 重命名时使用关联类型已有信息+相近语义+类型+部分旧词汇等组合，并且过滤敏感词汇，同时用户也可以自定义敏感词，~~弃用‘随机单词无脑组合’~~
+   1. 异类同名成员->异类异名成员，异类异名成员->异类同名成员，模拟正常开发。成员指的是方法、属性、函数
+4. 智能识别不可修改部分：通过类型及继承链方式识别系统、第三方、Pod方法，并不是‘简单’的相等判断，例如：
+   1. 类方法：+ (void)init;原则上任何地方都能改
+   1. 对象方法：- (void)reloadData;不是UITableView的子类是可以改的
+   1. 属性：@property (readonly) NSUInteger length;如果不是NSString的子类也是可以改的
 <a name="7e02145ffab0f7184b0a6b92e79d9acd"></a>
-### General part
+### 通用部分
 
-1. [Project Configuration], as long as you select the project path, other default configurations will be automatically completed
-   1. Globally set ‘Ignore Path’, support regular, better to use with blacklist
-   1. ‘xcodeproj’ setting, for multiple xcodeproj projects and xx.xcodeproj not in the project root directory
-   1. ‘Scheme’ is confused and consistent with Xcode
-   1. "Reference project root path" setting, read the word and UUID of the reference project
-   1. ‘Sensitive words’ filtering
-   1. ‘**Version iteration confusion**’, iteratively update after review, continue to use the last time (you can also choose the version arbitrarily) to obfuscate the record incremental confusion, maintain version continuity, and simulate normal development. Advantages: Synchronize development and obfuscation and are independent of each other. The main functions currently support update confusion
-2. [Virus killing], [Xcode poisoning, XCSSET Malware](https://juejin.cn/post/6936535178118430733)
-   1. ‘UUID suffix’, the virus will randomly insert UUID with a fixed suffix, regular scanning
-   1. ‘Script path feature’, a suspicious script will be executed before virus compilation, and regular scanning is supported
-   1. ‘Run script code flag’, a suspicious script code will be executed before virus compilation, support regular scanning
-3. [Resource replacement], specify the resource folder to be replaced before obfuscation, and automatically replace the file with the same name, which is convenient and quick
-3. [Edit picture], quality modification, size shift, local pixel fine-tuning
-3. [Modify file attributes], such as creation time, access time, modification time
-3. [Modify item], no need to delete Cocoapods
-   1. You can set ‘modify uuid’ for complete refurbishment
-   1. Customize the ‘modify target’ name, and update the associated information simultaneously
-7. Automatic source code backup
+1. [项目配置]，只要选择项目路径，自动完成其他默认配置
+   1. 全局设置‘忽略路径’，支持正则，配合黑名单使用更佳
+   1. ‘xcodeproj’设置，针对多xcodeproj项目和xx.xcodeproj不在项目根目录的情况
+   1. ‘Scheme’混淆，与Xcode保持一致
+   1. ‘参考项目根路径’设置，读取参考项目的单词、UUID
+   1. ‘敏感词’过滤
+   1. ‘**版本迭代混淆**’，过审后迭代更新，沿用上一次（也可以任意选择版本）混淆记录增量混淆，保持版本连续性，模拟正常开发。优势：做到开发和混淆同步且各自独立。目前主要功能均支持更新混淆
+2. [杀病毒]，[Xcode中毒，XCSSET Malware](https://juejin.cn/post/6936535178118430733)
+   1. ‘UUID后缀’，病毒会随机插入UUID，会带有固定后缀，正则扫描
+   1. ‘脚本路径特征’，病毒编译前会执行一个可疑脚本，支持正则扫描
+   1. ‘运行脚本代码标志’，病毒编译前会执行一个可疑脚本代码，支持正则扫描
+3. [资源替换]，混淆前指定需要替换的资源文件夹，自动进行同名文件替换，方便快捷
+3. [修改图片]，质量修改、大小偏移、局部像素微调
+3. [修改文件属性]，如创建时间、访问时间、修改时间
+3. [修改项目]，无需删除Cocoapods
+   1. 可设置‘修改uuid’，彻底翻新
+   1. 自定义‘修改target’名称，相关联信息同步更新
+7. 自动备份源码
 <a name="279a46203c9fe475b30ffab43dad6dba"></a>
 ### Objective-C
 
-1. [Delete comment], you can set ‘retain spaces’ and ‘preserve pragma’ to facilitate viewing during testing
-1. [Rename picture], intelligent noun replacement, automatically correct the situation that the picture name and the xcassets folder name do not correspond
-   1. You can set a ‘run splicing name’, which is used for the picture name generated by string splicing at runtime
-   1. You can set ‘rename associated string to modify the situation where the string is equal to the picture name
-   1. The switch of ‘ignore dangerous names’ can be set
-3. [Insert Picture], automatically insert a picture, and simulate manual call according to the context and type, and the number of inserts can be specified
-3. [Rename property], support all types of @property, advantages:
-   1. Identify grammar, identify type, inheritance relationship, **attribute name confusion and class name (including inheritance chain) association**, automatically identify system attributes
-   1. File name Model suffix filtering can be set
-5. [Insert property], associate existing types, smart noun replacement
-   1. ‘Percentage Control’
-   1. ‘Model suffix’ switch, purpose: to avoid failure of Model archiving or data transfer to model
-   1. It can be executed multiple times, and the index x2 increases
-6. [Rename method], similar to Xcode's Rename function, advantages:
-   1. Syntax-related, type recognition, inheritance relationship, support **multi-parameter modification, method name confusion, class name (including inheritance chain) and type association**, automatic identification of system methods
-7. [Insert method], insert and call context related methods, bid farewell to "garbage code", advantages:
-   1. According to the return value type of the method, create the corresponding method in the category. At the same time, the return value of the original method is encapsulated and called.
-   1. It can be executed multiple times, and the index x2 increases
-8. [Modification method], simulating manual package call, advantages:
-   1. Make a **split call to the original method and partially adjust it according to the parameter type (support inheritance)**. For details, see [Summary of Supported Parameter Types](https://www.yuque.com/docs/share/315b72d9-28f9-4fa6-bf20-c40d94f2253a?#《修改方法-支持参数类型汇总表》)
-   1. It can be executed multiple times, and the index x2 increases
-9. [Rename global variable], smart noun replacement
-9. [Modify global variables], replace global variable names, ** convert global variables into global functions**, confuse string variable values
-9. [Modify local variables], simulate manual encapsulation call, variable name association type, advantages:
-   1. The value of the local variable remains unchanged during operation. For details, see [Summary of Supported Types](https://www.yuque.com/docs/share/90444065-4f4e-49c8-9e1a-5bd3d3b4f84d?#《修改局部变量-支持类型汇总表》)
-   1. It can be executed multiple times, and the index x2 increases
-12. [Rename Multi-Language], modify the multi-language that directly or indirectly use the system methods **NSLocalizedString** and **NSLocalizedStringFromTable**
-12. [Modify string], support any string, encryption processing (hard code -> memory), the original string is kept in the comment for easy inspection
-   1. Set the ‘minimum length’ filter
-   1. You can also set the "effective number" to use together
-14. [Modify xib, storyboard], automatically insert the view, and modify the internal structure properties
-14. [Modify font], randomly fine-tune the font used in the project and identify macros
-14. [Modify color], randomly shift the color of UI controls in the project, and identify the macro
-14. [UI layout offset], support frame, Mansonry, SDAutoLayout common layout fine-tuning
-14. [Insert file], generate other files (encapsulate network requests, create custom controls, simulate normal development), and call them automatically in the project; **Note:** (Under the project root path, "**other_xxx_file* will be generated" *" folder, the sub-option **Target** controls the import method, if it is empty, you need to manually import it, just drag the generated folder into the project; otherwise, automatically import)
-14. [Insert text], generate text files such as json, txt, doc, plist, etc., which are automatically called in the project; **Note:** (Under the project root path, a folder of "**other_xxx_text**" will be generated, The generated file will **automatically import**)
-14. [Rename class], the class name is not limited (for example: my, My), you can specify to add a prefix, advantages:
-   1. Smart Noun Substitution
-   1. ‘Rename files with the same name’ can be set
-   1. You can set ‘rename similar strings’, (ignore|equal|contains) three settings
-   1. Added ‘correct non-standard dot grammar’ to call for non-standard dot grammar (methods are used as attribute calls)
+1. [删除注释]，可‘保留空格’‘保留pragma’设置，利于测试阶段查看
+1. [重命名图片]，智能名词替换，自动纠正图片名和xcassets文件夹名不对应的情况
+   1. 可设置‘运行拼接名称’，用于运行时通过字符串拼接生成的图片名
+   1. 可设置‘重命名关联字符串，用于修改字符串与图片名相等的情况
+   1. 可设置‘忽略危险名称’开关
+3. [插入图片]，自动插入图片，同时根据上下文及类型模拟人工调用，可指定插入个数
+3. [重命名属性]，支持@property的所有类型，优势：
+   1. 识别语法，识别类型、继承关系，**属性名混淆和类名（包含继承链）关联**，自动识别系统属性
+   1. 可设置文件名Model后缀过滤
+5. [插入属性]，关联已有类型，智能名词替换
+   1. ‘百分比控制’
+   1. ‘Model后缀’开关，目的：避免Model归档或者数据转模型失败
+   1. 可多次执行，指数x2递增
+6. [重命名方法]，近似Xcode的Rename功能，优势：
+   1. 语法相关，识别类型、继承关系，支持**多参修改，方法名混淆和类名（包含继承链）及类型关联**，自动识别系统方法
+7. [插入方法]，插入并调用上下文关联方法，告别“垃圾代码”，优势：
+   1. 根据方法的返回值类型，在分类中创建相应的方法。同时封装原方法的返回值并调用。
+   1. 可多次执行，指数x2递增
+8. [修改方法]，模拟人工封装调用，优势：
+   1. 对原方法进行**拆分调用并根据参数类型（支持继承）局部调整**，详情见[支持参数类型汇总表](https://www.yuque.com/docs/share/315b72d9-28f9-4fa6-bf20-c40d94f2253a?#《修改方法-支持参数类型汇总表》)
+   1. 可多次执行，指数x2递增
+9. [重命名全局变量]，智能名词替换
+9. [修改全局变量]，替换全局变量名、**全局变量转化为全局函数**、混淆字符串变量值
+9. [修改局部变量]，模拟人工封装调用，变量名关联类型，优势：
+   1. 局部变量值运行时保持不变，详情见[支持类型汇总表](https://www.yuque.com/docs/share/90444065-4f4e-49c8-9e1a-5bd3d3b4f84d?#《修改局部变量-支持类型汇总表》)
+   1. 可多次执行，指数x2递增
+12. [重命名多语言]，对直接或间接使用系统方法**NSLocalizedString**、**NSLocalizedStringFromTable**的多语言进行修改
+12. [修改字符串]，支持任意字符串，加密处理（硬编码->内存），原始字符串保留在注释中方便检查
+   1. 设置‘最少长度’过滤
+   1. 也可设置‘有效个数’搭配使用
+14. [修改xib、storyboard]，自动插入视图，并修改内部结构属性
+14. [修改字体]，对项目中使用的字体随机微调，识别宏
+14. [修改颜色]，对项目中UI控件颜色随机偏移，识别宏
+14. [UI布局偏移]，支持Frame、Mansonry、SDAutoLayout常见布局微调
+14. [插入文件]，生成其它文件（封装网络请求，创建自定义控件，模拟正常开发），项目中自动调用；**注意：**(在项目根路径下，会生成"**other_xxx_file**"的文件夹，子选项**Target**控制导入方式，若为空，则需要手动导入，将生成的文件夹拖入工程即可；反之，自动导入）
+14. [插入文本]，生成json、txt、doc、plist等文本文件，项目中自动调用；**注意：**(在项目根路径下，会生成"**other_xxx_text**"的文件夹，生成的文件会**自动导入**）
+14. [重命名类]，类名不限制（例如：my、My），可指定添加前缀，优势：
+   1. 智能名词替换
+   1. 可设置‘重命名同名文件’
+   1. 可设置‘重命名相似字符串’，(忽略|相等|包含)三种设置
+   1. 新增‘纠正非标准点语法’，针对非标准的点语法调用（方法当做属性调用）
 <a name="015937695b202fc108bd5bc9b3283082"></a>
 ### C++
 
-1. [Rename attribute], support all type attributes, recognize grammar, recognize type, inherit
-2. [Insert attributes], insert attributes (member variables) and call each other to modify, automatically initialize, destroy, and assign and modify in other methods and other similar manual operations, support ‘percentage control’
-2. [Rename method], similar to Xcode's Rename function, identifying types, templates, overloading, rewriting, inheritance, etc.
-4. [Modification method], use overloading technology to modify the function prototype and call the modified formal parameters
-4. [Modify string], support any string, encryption processing (hard code -> memory), the original string is kept in the comment for easy inspection
-   1. Set the ‘minimum length’ filter
-   1. You can also set the "effective number" to use together
-6. [Rename class], support template and other types
-   1. Can switch the old mode
-   1. Prefix setting
-   1. ‘Rename files with the same name’ can be set
+1. [重命名属性]，支持所有类型属性，识别语法，识别类型、继承
+2. [插入属性]，插入属性（成员变量）并相互调用修改，自动初始化、销毁、并在其他方法中赋值修改等类似人工操作，支持‘百分比控制’
+2. [重命名方法]，近似Xcode的Rename功能，识别类型、模板、重载、重写、继承等关系
+4. [修改方法]，利用重载技术修改函数原型并调用修改形参
+4. [修改字符串]，支持任意字符串，加密处理（硬编码->内存），原始字符串保留在注释中方便检查
+   1. 设置‘最少长度’过滤
+   1. 也可设置‘有效个数’搭配使用
+6. [重命名类]，支持模板等类型
+   1. 可切换旧模式
+   1. 前缀设置
+   1. 可设置‘重命名同名文件’
 <a name="ea78561d0c1d5c21d3e2c93d960472e5"></a>
 ### Cocos2d-x
-This part of the function is integrated into C++ and supports cocos2dx automatic filtering
+该部分功能整合至C++中，支持cocos2dx自动过滤
 <a name="47038e8338f9e18ef9eaba0ea5effb80"></a>
 ### Swift
-Adapt to Swift5.3, the SPM package management project has not yet been tested
+适配Swift5.3，SPM包管理项目暂未测试
 
-1. [Rename attribute], basic function, not too much description, advantages:
-   1. Similar to OC[Rename Attribute], identify inheritance chain and nested type, support storage and calculation of attributes, observers, wrappers, class attributes
-   1. File name Model suffix filtering can be set
-2. [Rename method], the basic functions are renamed similar to other tools, without too much description, advantages: identification of inheritance chain nested types, support for (class, struct, enum) static methods and instance methods, and optional chains Wait
-2. [Modify string], recognize single-line, multi-line, string interpolation, and extended string. After the modification, it can be freely combined by a variety of methods such as encryption and split character groups, and the comments of the original characters are reserved for easy inspection
-   1. Set the ‘minimum length’ filter
-   1. You can also set the "effective number" to use together
-4. [Rename class], the class name is not restricted (for example: my, My), identify nested types and typealias, support class, struct, enum, protocol
-   1. ‘Rename files with the same name’ can be set
-   1. ‘Prefix’ can be set
-> Note: In the current mixed project of Swift and OC, the mutual call between OC and Swift needs to be added to the blacklist manually, which will be optimized in the future.
+1. [重命名属性]，基本功能，不做过多描述，优势：
+   1. 类似OC[重命名属性]，识别继承链及嵌套类型，支持存储和计算属性、观察器、包装器、类属性
+   1. 可设置文件名Model后缀过滤
+2. [重命名方法]，基本功能改名字类似其他工具，不做过多描述，优势：识别继承链嵌套类型，支持（class、struct、enum）的静态方法和实例方法，及可选链等
+2. [修改字符串]，识别单行、多行、字符串插值、及扩展字符串，改后由加密和拆分字符组等多种方式自由组合，并保留原有字符的注释，方便检查
+   1. 设置‘最少长度’过滤
+   1. 也可设置‘有效个数’搭配使用
+4. [重命名类]，类名不限制（例如：my、My），识别嵌套类型及typealias，支持class、struct，enum、protocol
+   1. 可设置‘重命名同名文件’
+   1. 可设置‘前缀’
+> 注意：目前Swift和OC混合项目，OC和Swift相互调用的部分需要手动加入黑名单，后续将优化。
 
 <a name="6554a51551d5572e2cd7d848844e9660"></a>
-## planning
-Update iterations will be carried out in the following order
+## 规划中
+更新迭代将按照以下顺序依次进行
 
-1. Objective-C (95%), mainly to improve the versatility and stability of the tool, and strengthen the function
-   1. Audio and video files are used less and will be added later
-2. Swift (50%), under development...
-   1. Insert attributes
-   1. Modification method
-   1. Insert a file
-3. C++ (60%), under development...
-   1. Method: Insert
-   1. Attribute: modify
-   1. Global variables: modify
-   1. Local variables: modify
-4. Lua (0%) is too targeted and will not be open for the time being. I don’t plan to refactor for the time being. I need to talk about it.
-4. C# (0%), I don’t use much in my actual projects, so I ranked last, depending on user needs before deciding
-4. Other functions:
-   1. Fast obfuscation mode
+1. Objective-C（95%），主要提高工具的通用性和稳定性，及强化功能
+   1. 音频、视频文件使用少，后续添加
+2. Swift（50%），开发中...
+   1. 插入属性
+   1. 修改方法
+   1. 插入文件
+3. C++（60%），开发中...
+   1. 方法：插入
+   1. 属性：修改
+   1. 全局变量：修改
+   1. 局部变量：修改
+4. Lua（0%）的针对性太强了，暂时不开放，暂时不打算重构有需要在说吧
+4. C#（0%），本人实际项目使用不多，故排在最后，看用户需求再决定
+4. 其他功能：
+   1. 快速混淆模式
 <a name="af444a353c9380bc9aa8aec067937316"></a>
-# Graphic introduction
-Run the APP rendering, please read the [Tool Usage Tutorial](https://www.yuque.com/docs/share/edd2603f-d09d-4795-ae71-b42419b99446?#《confuse使用说明》)<br / >![image.png](https://cdn.nlark.com/yuque/0/2020/png/213807/1607931800015-f60e682f-6ef3-4c5a-bfc5-4c88222bb1a7.png#height=540&id=Ai791&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1080&originWidth=1920&originalType=binary&size=489209&status=done&style=none&width=960)
+# 图文介绍
+运行APP效果图，使用前请详细阅读[工具使用教程](https://www.yuque.com/docs/share/edd2603f-d09d-4795-ae71-b42419b99446?#《confuse使用说明》)<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/213807/1607931800015-f60e682f-6ef3-4c5a-bfc5-4c88222bb1a7.png#height=540&id=Ai791&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1080&originWidth=1920&originalType=binary&size=489209&status=done&style=none&width=960)
 <a name="c318fa67bf88d5d842cee03115743b4b"></a>
-# Update log
+# 更新日志
 <a name="FnHXN"></a>
-### v4.4.0 (2021.05.17)
+### v4.4.0（2021.05.17）
 
-1. Added Swift [Modify String], which recognizes single-line, multi-line, string interpolation, and extended string. After the change, it can be freely combined by multiple methods such as encryption and split character groups, and retains the original character comments Easy to check
-   1. Set the ‘minimum length’ filter
-   1. You can also set the "effective number" to use together
-2. Optimize OC[Layout Offset], fix OC[Layout Offset] operation logic priority change problem, improve recognition accuracy (500M project test passed once)
-2. Optimize OC [insert file] and add Debug test for fast positioning and time-consuming operations
-2. Fix the bug of OC[Rename Attribute], attribute and instance variable have the same name with small probability
-2. Fix OC[Insert Attribute], bug under special circumstances
-2. Optimize [Rename category] and [Modify project], large projects may be confused for a long time or stuck, which has been improved at present (500M project passed the test once, within 3 minutes)
-2. Fix that the percentage setting of trial mode may be abnormal
-2. Fix OC [insert method] incorrectly changed in previous versions, resulting in only insert method and missed call problem
+1. 新增Swift[修改字符串]，识别单行、多行、字符串插值、及扩展字符串，改后由加密和拆分字符组等多种方式自由组合，并保留原有字符的注释，方便检查
+   1. 设置‘最少长度’过滤
+   1. 也可设置‘有效个数’搭配使用
+2. 优化OC[布局偏移]，.修复OC[布局偏移]运算逻辑优先级改变问题，提高识别精度（5百兆项目测试一遍通过）
+2. 优化OC[插入文件]，新增Debug测试，用于快速定位耗时操作
+2. 修复OC[重命名属性]，属性和实例变量小概率重名bug
+2. 修复OC[插入属性]，特殊情况下bug
+2. 优化[重命名类]、[修改工程]，大项目有可能会混淆时间超长或者卡死，目前已改善（5百兆项目测试一遍通过，3分钟以内）
+2. 修复试用模式百分比设置有可能异常
+2. 修复OC[插入方法]之前几个版本误改，导致只有插入方法，漏调用问题
 
-[View more historical update records](https://www.yuque.com/docs/share/39f2f60e-b6a8-443b-b005-b9364fb79b95?#《confuse更新说明》)
+[查看更多历史更新记录](https://www.yuque.com/docs/share/39f2f60e-b6a8-443b-b005-b9364fb79b95?#《confuse更新说明》)
 <a name="41b9f638a3e62c9449ec872644258c8d"></a>
-# Thanks for the feedback
-[shizu2014](https://github.com/shizu2014), [myhonior](https://github.com/myhonior), [imbahong](https://github.com/imbahong), [tabier008](https://github.com/tabier008)
+# 感谢反馈
+[shizu2014](https://github.com/shizu2014)、[myhonior](https://github.com/myhonior)、[imbahong](https://github.com/imbahong)、[tabier008](https://github.com/tabier008)
 <a name="0ae29cb26e944f357b114cccc4c1211b"></a>
-# Link navigation
+# 链接导航
 
-1. [Tool usage tutorial](https://www.yuque.com/docs/share/edd2603f-d09d-4795-ae71-b42419b99446?#《confuse使用说明》)
-1. [Questions and Answers on Software Usage (Q&A)](https://www.yuque.com/docs/share/4a87ec96-80fe-4d25-873d-93cb428b3e15?#《软件使用问答（Q&A）》)
-1. [[Modification Method] Parameter Type Summary Table](https://www.yuque.com/docs/share/315b72d9-28f9-4fa6-bf20-c40d94f2253a?#《修改方法-支持参数类型汇总表》)
-1. [[Modify Local Variables] Modify Local Variables-Support Type Summary Table](https://www.yuque.com/docs/share/90444065-4f4e-49c8-9e1a-5bd3d3b4f84d?#《修改局部变量-支持类型汇总表》)
+1. [工具使用教程](https://www.yuque.com/docs/share/edd2603f-d09d-4795-ae71-b42419b99446?#《confuse使用说明》)
+1. [软件使用问答（Q&A）](https://www.yuque.com/docs/share/4a87ec96-80fe-4d25-873d-93cb428b3e15?#《软件使用问答（Q&A）》)
+1. [[修改方法]参数类型汇总表](https://www.yuque.com/docs/share/315b72d9-28f9-4fa6-bf20-c40d94f2253a?#《修改方法-支持参数类型汇总表》)
+1. [[修改局部变量]修改局部变量-支持类型汇总表](https://www.yuque.com/docs/share/90444065-4f4e-49c8-9e1a-5bd3d3b4f84d?#《修改局部变量-支持类型汇总表》)
